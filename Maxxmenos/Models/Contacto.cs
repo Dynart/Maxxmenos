@@ -7,23 +7,15 @@ using System.Collections.Generic;
 
 namespace AppIncaprefa.Models
 {
-    public partial class Proveedor
+    public partial class Contacto
     {
-        public Proveedor()
-        {
-            Factura = new HashSet<Factura>();
-        }
-
         public int Id { get; set; }
-        public string CedJuridica { get; set; }
         public string Nombre { get; set; }
+        public string Apellido { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
-        public string Provincia { get; set; }
-        public string Canton { get; set; }
-        public string Distrito { get; set; }
-        public string Direccion { get; set; }
+        public int? ServicioId { get; set; }
 
-        public virtual ICollection<Factura> Factura { get; set; }
+        public virtual Servicio Servicio { get; set; }
     }
 }

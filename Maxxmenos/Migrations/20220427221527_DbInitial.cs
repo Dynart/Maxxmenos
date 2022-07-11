@@ -46,52 +46,7 @@ namespace Maxxmenos.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Categoria",
-                columns: table => new
-                {
-                    IdCategoria = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(nullable: true),
-                    Descripcion = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categoria", x => x.IdCategoria);
-                });
 
-            migrationBuilder.CreateTable(
-                name: "clientes",
-                columns: table => new
-                {
-                    Cedula = table.Column<string>(nullable: false),
-                    IdCliente = table.Column<int>(nullable: false),
-                    Nombre = table.Column<string>(nullable: true),
-                    Apellidos = table.Column<string>(nullable: true),
-                    Direccion = table.Column<string>(nullable: true),
-                    Telefono = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_clientes", x => x.Cedula);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "proveedors",
-                columns: table => new
-                {
-                    IdProveedor = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Compania = table.Column<string>(nullable: true),
-                    Representante = table.Column<string>(nullable: true),
-                    Telefono = table.Column<string>(nullable: true),
-                    ProductoId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_proveedors", x => x.IdProveedor);
-                });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -199,61 +154,7 @@ namespace Maxxmenos.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Producto",
-                columns: table => new
-                {
-                    IdProducto = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(nullable: true),
-                    Precio = table.Column<decimal>(nullable: false),
-                    Cantidad = table.Column<int>(nullable: false),
-                    ProveedorId = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Producto", x => x.IdProducto);
-                    table.ForeignKey(
-                        name: "FK_Producto_Categoria_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categoria",
-                        principalColumn: "IdCategoria",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Producto_proveedors_ProveedorId",
-                        column: x => x.ProveedorId,
-                        principalTable: "proveedors",
-                        principalColumn: "IdProveedor",
-                        onDelete: ReferentialAction.Cascade);
-                });
 
-            migrationBuilder.CreateTable(
-                name: "ventas",
-                columns: table => new
-                {
-                    IdVenta = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClienteCedula = table.Column<string>(nullable: true),
-                    ProductoId = table.Column<int>(nullable: false),
-                    Fecha = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ventas", x => x.IdVenta);
-                    table.ForeignKey(
-                        name: "FK_ventas_clientes_ClienteCedula",
-                        column: x => x.ClienteCedula,
-                        principalTable: "clientes",
-                        principalColumn: "Cedula",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ventas_Producto_ProductoId",
-                        column: x => x.ProductoId,
-                        principalTable: "Producto",
-                        principalColumn: "IdProducto",
-                        onDelete: ReferentialAction.Cascade);
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -293,28 +194,9 @@ namespace Maxxmenos.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Producto_CategoriaId",
-                table: "Producto",
-                column: "CategoriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Producto_ProveedorId",
-                table: "Producto",
-                column: "ProveedorId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ventas_ClienteCedula",
-                table: "ventas",
-                column: "ClienteCedula");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ventas_ProductoId",
-                table: "ventas",
-                column: "ProductoId");
         }
+
+           
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
@@ -334,25 +216,12 @@ namespace Maxxmenos.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ventas");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.DropTable(
-                name: "clientes");
-
-            migrationBuilder.DropTable(
-                name: "Producto");
-
-            migrationBuilder.DropTable(
-                name: "Categoria");
-
-            migrationBuilder.DropTable(
-                name: "proveedors");
+           
         }
     }
 }

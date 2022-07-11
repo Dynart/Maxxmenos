@@ -7,17 +7,17 @@ using System.Collections.Generic;
 
 namespace AppIncaprefa.Models
 {
-    public partial class Categoria
+    public partial class Servicio
     {
-        public Categoria()
+        public Servicio()
         {
-            Material = new HashSet<Material>();
+            Contacto = new HashSet<Contacto>();
         }
 
         public int Id { get; set; }
-        public string Nombre { get; set; }
+        public string TipoServ { get; set; }
         public string Descripcion { get; set; }
 
-        public virtual ICollection<Material> Material { get; set; }
+        public virtual ICollection<Contacto> Contacto { get; set; }
     }
 }
